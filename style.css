@@ -1,0 +1,630 @@
+/* ==========================================================================
+   Gifted — Design System
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap');
+
+/* --------------------------------------------------------------------------
+   Tokens — Dark Mode (default)
+   -------------------------------------------------------------------------- */
+:root,
+[data-theme="dark"] {
+    --bg: #111110;
+    --bg-surface: #1a1a18;
+    --bg-raised: #222220;
+    --border: rgba(255, 255, 255, 0.08);
+    --border-mid: rgba(255, 255, 255, 0.14);
+
+    --text-primary: #f0ede6;
+    --text-secondary: #9b9890;
+    --text-muted: #6a6762;
+
+    --accent: #ff5f4b;
+    --accent-hover: #ff7a69;
+    --accent-subtle: rgba(255, 95, 75, 0.12);
+
+    --ribbon: #ff5f4b;
+    --box-body: #2a2a28;
+    --box-lid: #333330;
+    --bow-fill: #ff7a69;
+    --shadow-fill: rgba(0, 0, 0, 0.4);
+    --sparkle-color: #ffb347;
+
+    --kbd-bg: rgba(255, 255, 255, 0.08);
+    --kbd-border: rgba(255, 255, 255, 0.14);
+}
+
+/* --------------------------------------------------------------------------
+   Tokens — Light Mode
+   -------------------------------------------------------------------------- */
+[data-theme="light"] {
+    --bg: #faf8f4;
+    --bg-surface: #f2ede5;
+    --bg-raised: #e8e2d8;
+    --border: rgba(0, 0, 0, 0.07);
+    --border-mid: rgba(0, 0, 0, 0.12);
+
+    --text-primary: #1a1916;
+    --text-secondary: #6b6760;
+    --text-muted: #a09d98;
+
+    --accent: #e8402a;
+    --accent-hover: #c93520;
+    --accent-subtle: rgba(232, 64, 42, 0.08);
+
+    --ribbon: #e8402a;
+    --box-body: #ddd8ce;
+    --box-lid: #ccc6ba;
+    --bow-fill: #e8402a;
+    --shadow-fill: rgba(0, 0, 0, 0.12);
+    --sparkle-color: #e07b20;
+
+    --kbd-bg: rgba(0, 0, 0, 0.06);
+    --kbd-border: rgba(0, 0, 0, 0.12);
+}
+
+/* --------------------------------------------------------------------------
+   Theme transition
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    transition:
+        background-color 0.35s ease,
+        border-color 0.35s ease,
+        color 0.35s ease,
+        fill 0.35s ease;
+}
+
+/* --------------------------------------------------------------------------
+   Base
+   -------------------------------------------------------------------------- */
+body {
+    background-color: var(--bg);
+    color: var(--text-primary);
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* Subtle noise grain texture */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+}
+
+/* --------------------------------------------------------------------------
+   Layout
+   -------------------------------------------------------------------------- */
+.app-container {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 1.75rem 4rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --------------------------------------------------------------------------
+   Header
+   -------------------------------------------------------------------------- */
+.app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 1rem;
+    margin-bottom: 0.5rem;
+    animation: slideDown 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.title-group {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.logo-mark {
+    font-size: 1.25rem;
+    color: var(--accent);
+    line-height: 1;
+    animation: spinIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both;
+}
+
+h1 {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: clamp(1.6rem, 4vw, 2rem);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    line-height: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Theme Toggle
+   -------------------------------------------------------------------------- */
+.theme-toggle {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-mid);
+    border-radius: 999px;
+    width: 44px;
+    height: 26px;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+    border-color: var(--accent);
+}
+
+.theme-icon {
+    position: absolute;
+    font-size: 0.85rem;
+    line-height: 1;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.theme-icon--light {
+    color: #f5a623;
+}
+
+.theme-icon--dark {
+    color: #8ba4c8;
+}
+
+[data-theme="dark"] .theme-icon--light {
+    opacity: 0;
+    transform: translateY(-6px);
+}
+
+[data-theme="dark"] .theme-icon--dark {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+[data-theme="light"] .theme-icon--light {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+[data-theme="light"] .theme-icon--dark {
+    opacity: 0;
+    transform: translateY(6px);
+}
+
+/* --------------------------------------------------------------------------
+   Mascot
+   -------------------------------------------------------------------------- */
+.mascot-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 2rem 0 1.5rem;
+    animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+}
+
+.mascot-svg {
+    width: 140px;
+    height: 140px;
+    overflow: visible;
+    animation: floatIdle 4s ease-in-out infinite;
+}
+
+/* SVG parts */
+.mascot-shadow {
+    fill: var(--shadow-fill);
+    animation: shadowPulse 4s ease-in-out infinite;
+}
+
+.box-body {
+    fill: var(--box-body);
+}
+
+.box-lid {
+    fill: var(--box-lid);
+}
+
+.ribbon {
+    fill: var(--ribbon);
+}
+
+.bow {
+    fill: var(--bow-fill);
+    opacity: 0.85;
+}
+
+.bow-knot {
+    fill: var(--bow-fill);
+}
+
+.sparkle {
+    fill: var(--sparkle-color);
+    font-family: sans-serif;
+    opacity: 0;
+}
+
+.sparkle-1 {
+    animation: twinkle 2.8s ease-in-out 0.2s infinite;
+}
+
+.sparkle-2 {
+    animation: twinkle 2.8s ease-in-out 0.8s infinite;
+}
+
+.sparkle-3 {
+    animation: twinkle 2.8s ease-in-out 1.4s infinite;
+}
+
+.sparkle-4 {
+    animation: twinkle 2.8s ease-in-out 0.5s infinite;
+}
+
+/* Loading state */
+.mascot-svg.is-loading {
+    animation: shakeThink 0.6s ease-in-out infinite;
+}
+
+.mascot-svg.is-loading .bow,
+.mascot-svg.is-loading .bow-knot {
+    animation: bowSpin 1s ease-in-out infinite;
+    transform-origin: 80px 58px;
+}
+
+.mascot-svg.is-loading .sparkle {
+    animation-duration: 0.6s !important;
+    opacity: 1;
+}
+
+/* Compact state (after first send) */
+.mascot-container.compact .mascot-svg {
+    width: 72px;
+    height: 72px;
+}
+
+.mascot-container.compact .mascot-label {
+    display: none;
+}
+
+.mascot-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    font-weight: 300;
+    font-style: italic;
+}
+
+/* --------------------------------------------------------------------------
+   Form & Input
+   -------------------------------------------------------------------------- */
+.gift-form {
+    animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+}
+
+.input-wrapper {
+    background: var(--bg-surface);
+    border: 1.5px solid var(--border-mid);
+    border-radius: 16px;
+    padding: 1rem 1.25rem 0.6rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-wrapper:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-subtle);
+}
+
+textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    resize: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--text-primary);
+    min-height: 72px;
+    max-height: 240px;
+    overflow-y: auto;
+}
+
+textarea::placeholder {
+    color: var(--text-muted);
+    font-weight: 300;
+}
+
+.input-hint {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-top: 0.35rem;
+    text-align: right;
+    letter-spacing: 0.01em;
+}
+
+kbd {
+    background: var(--kbd-bg);
+    border: 1px solid var(--kbd-border);
+    border-radius: 4px;
+    padding: 0.05em 0.35em;
+    font-family: inherit;
+    font-size: 0.7rem;
+}
+
+/* --------------------------------------------------------------------------
+   Output / Chat
+   -------------------------------------------------------------------------- */
+.output-section {
+    padding-bottom: 2rem;
+}
+
+#output-container {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+#output-container.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#output-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+/* Chat bubbles */
+.message {
+    line-height: 1.65;
+    animation: fadeUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.message.user {
+    align-self: flex-end;
+    background: var(--accent-subtle);
+    border: 1px solid var(--accent);
+    border-radius: 18px 18px 4px 18px;
+    padding: 0.7rem 1.1rem;
+    max-width: 82%;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+}
+
+.message.assistant {
+    align-self: flex-start;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: 4px 18px 18px 18px;
+    padding: 1.1rem 1.3rem;
+    max-width: 100%;
+    font-size: 0.95rem;
+}
+
+/* Markdown inside assistant */
+.message.assistant p {
+    margin-bottom: 0.4em;
+}
+
+.message.assistant p:last-child {
+    margin-bottom: 0;
+}
+
+.message.assistant ul,
+.message.assistant ol {
+    padding-left: 1.2em;
+    margin: 0.35em 0;
+}
+
+.message.assistant ul {
+    list-style-type: disc;
+}
+
+.message.assistant ol {
+    list-style-type: decimal;
+}
+
+.message.assistant li {
+    margin-bottom: 0.25em;
+}
+
+.message.assistant li::marker {
+    color: var(--accent);
+}
+
+.message.assistant h3 {
+    font-family: 'DM Serif Display', serif;
+    font-weight: 400;
+    font-size: 1.05rem;
+    color: var(--text-primary);
+    margin: 0.8em 0 0.25em;
+}
+
+.message.assistant h4 {
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    margin: 0.6em 0 0.2em;
+}
+
+.message.assistant strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.message.assistant em {
+    color: var(--text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   Utilities
+   -------------------------------------------------------------------------- */
+.hidden {
+    display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   Keyframes
+   -------------------------------------------------------------------------- */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-14px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes spinIn {
+    from {
+        opacity: 0;
+        transform: rotate(-180deg) scale(0.5);
+    }
+
+    to {
+        opacity: 1;
+        transform: rotate(0deg) scale(1);
+    }
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes floatIdle {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-7px);
+    }
+}
+
+@keyframes shadowPulse {
+
+    0%,
+    100% {
+        transform: scaleX(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scaleX(0.82);
+        opacity: 0.6;
+    }
+}
+
+@keyframes twinkle {
+
+    0%,
+    100% {
+        opacity: 0;
+        transform: scale(0.6) rotate(0deg);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.1) rotate(20deg);
+    }
+}
+
+@keyframes shakeThink {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-4px) rotate(-1deg);
+    }
+
+    40% {
+        transform: translateX(4px) rotate(1deg);
+    }
+
+    60% {
+        transform: translateX(-3px);
+    }
+
+    80% {
+        transform: translateX(3px);
+    }
+}
+
+@keyframes bowSpin {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(12deg);
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+@media (max-width: 480px) {
+    .app-container {
+        padding: 1.25rem 1rem 3rem;
+    }
+
+    h1 {
+        font-size: 1.4rem;
+    }
+
+    .mascot-svg {
+        width: 110px;
+        height: 110px;
+    }
+
+    textarea {
+        font-size: 0.95rem;
+    }
+
+    .message.user {
+        max-width: 92%;
+    }
+
+    .input-hint {
+        display: none;
+    }
+}
