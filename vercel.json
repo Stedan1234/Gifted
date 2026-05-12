@@ -1,11 +1,5 @@
 {
   "buildCommand": "npm run build",
   "installCommand": "npm install",
-  "outputDirectory": "dist",
-  "env": {
-    "VITE_AI_API_KEY": "@VITE_AI_API_KEY",
-    "VITE_AI_API_URL": "@VITE_AI_API_URL",
-    "VITE_AI_MODEL": "@VITE_AI_MODEL",
-    "PORT": "@PORT"
-  }
+  "outputDirectory": "dist"
 }
