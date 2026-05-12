@@ -1,27 +1,11 @@
 {
   "buildCommand": "npm run build",
   "installCommand": "npm install",
-  "framework": "vite",
   "outputDirectory": "dist",
   "env": {
-    "OPENAI_API_KEY": "@OPENAI_API_KEY",
-    "OPENAI_API_URL": "@OPENAI_API_URL",
-    "OPENAI_MODEL": "@OPENAI_MODEL",
-    "PORT": "3001"
-  },
-  "functions": {
-    "server.js": {
-      "runtime": "nodejs18.x"
-    }
-  },
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/server.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
-  ]
+    "VITE_AI_API_KEY": "@VITE_AI_API_KEY",
+    "VITE_AI_API_URL": "@VITE_AI_API_URL",
+    "VITE_AI_MODEL": "@VITE_AI_MODEL",
+    "PORT": "@PORT"
+  }
 }
