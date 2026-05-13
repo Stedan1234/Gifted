@@ -19,9 +19,9 @@ if (fs.existsSync(distPath)) {
     app.use(express.static(distPath));
 }
 
-const openaiApiKey = process.env.OPENAI_API_KEY || process.env.VITE_AI_API_KEY;
-const openaiBaseUrl = process.env.OPENAI_API_URL || process.env.VITE_AI_API_URL;
-const openaiModel = process.env.OPENAI_MODEL || process.env.VITE_AI_MODEL;
+const openaiApiKey = process.env.VITE_AI_API_KEY;
+const openaiBaseUrl = process.env.VITE_AI_API_URL;
+const openaiModel = process.env.VITE_AI_MODEL;
 
 if (!openaiApiKey) console.error("Missing API key. Set OPENAI_API_KEY or VITE_AI_API_KEY in .env");
 if (!openaiModel) console.error("Missing model. Set OPENAI_MODEL or VITE_AI_MODEL in .env");
