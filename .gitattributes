@@ -1,0 +1,8 @@
+# Auto detect text files and normalize line endings to LF
+* text=auto
+
+# Ensure shell scripts and binaries use LF
+*.sh eol=lf
+*.bat eol=crlf
+*.exe binary
+.bin/** eol=lf
